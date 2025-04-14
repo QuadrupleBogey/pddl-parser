@@ -18,7 +18,7 @@
 package org.gerryai.planning.parser.pddl.internal.logic.builders;
 
 import org.gerryai.planning.model.logic.Predicate;
-import org.gerryai.planning.model.logic.Term;
+import org.gerryai.planning.model.logic.impl.Term;
 import org.gerryai.planning.parser.pddl.internal.logic.FormulaStash;
 import org.gerryai.planning.parser.pddl.internal.logic.SymbolStash;
 import org.gerryai.planning.parser.pddl.internal.logic.TermStash;

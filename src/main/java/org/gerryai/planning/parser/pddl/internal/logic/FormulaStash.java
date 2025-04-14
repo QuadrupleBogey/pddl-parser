@@ -17,9 +17,8 @@
  */
 package org.gerryai.planning.parser.pddl.internal.logic;
 
-import com.google.common.base.Optional;
 import org.gerryai.planning.model.domain.FunctionDefinition;
-import org.gerryai.planning.model.logic.Formula;
+import org.gerryai.planning.model.logic.impl.Formula;
 import org.gerryai.planning.model.logic.FunctionTerm;
 import org.gerryai.planning.model.logic.Operation;
 import org.gerryai.planning.model.logic.Predicate;
@@ -28,6 +27,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
@@ -138,9 +138,9 @@ public class FormulaStash {
      */
     public Optional<FormulaType> peek() {
         if (formulas.isEmpty()) {
-            return Optional.absent();
+            return Optional.empty();
         } else {
-            return Optional.fromNullable(formulas.peek().getFormulaType());
+            return Optional.ofNullable(formulas.peek().getFormulaType());
         }
     }
 

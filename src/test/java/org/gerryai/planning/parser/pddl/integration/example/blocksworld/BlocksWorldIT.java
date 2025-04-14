@@ -19,13 +19,18 @@ package org.gerryai.planning.parser.pddl.integration.example.blocksworld;
 
 import org.gerryai.planning.model.Requirement;
 import org.gerryai.planning.model.domain.Action;
+import org.gerryai.planning.model.domain.Effect;
+import org.gerryai.planning.model.domain.Precondition;
 import org.gerryai.planning.model.logic.Predicate;
+import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.pddl.integration.DomainSuccessTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.gerryai.planning.model.logic.FormulaBuilder.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that the Blocksworld example files are parsed correctly.
@@ -43,17 +48,17 @@ public class BlocksWorldIT extends DomainSuccessTester {
 
     @Test
     public void blocksWorldDomainHasOneRequirement() {
-        assertEquals(1, domain.getRequirements().asSet().size());
+        assertEquals(1, domain.getRequirements().size());
     }
 
     @Test
     public void blocksWorldDomainHasStripsRequirement() {
-        assertTrue(domain.getRequirements().asSet().contains(Requirement.STRIPS));
+        assertTrue(domain.getRequirements().contains(Requirement.STRIPS));
     }
 
     @Test
     public void blocksWorldDomainHasFivePredicates() {
-        assertEquals(5, domain.getPredicates().asSet().size());
+        assertEquals(5, domain.getPredicates().size());
     }
 
     @Test
@@ -62,7 +67,7 @@ public class BlocksWorldIT extends DomainSuccessTester {
                 .name("clear")
                 .variable("x")
                 .build();
-        assertTrue("Domain contains the (clear ?x) predicate", domain.getPredicates().asSet().contains(clear));
+        assertTrue(domain.getPredicates().contains(clear), "Domain contains the (clear ?x) predicate");
     }
 
     @Test
@@ -71,7 +76,7 @@ public class BlocksWorldIT extends DomainSuccessTester {
                 .name("on-table")
                 .variable("x")
                 .build();
-        assertTrue("Domain contains the (on-table ?x) predicate", domain.getPredicates().asSet().contains(onTable));
+        assertTrue(domain.getPredicates().contains(onTable), "Domain contains the (on-table ?x) predicate");
     }
 
     @Test
@@ -79,7 +84,7 @@ public class BlocksWorldIT extends DomainSuccessTester {
         Predicate armEmpty = new Predicate.Builder()
                 .name("arm-empty")
                 .build();
-        assertTrue("Domain contains the (arm-empty) predicate", domain.getPredicates().asSet().contains(armEmpty));
+        assertTrue(domain.getPredicates().contains(armEmpty), "Domain contains the (arm-empty) predicate");
     }
 
     @Test
@@ -88,7 +93,7 @@ public class BlocksWorldIT extends DomainSuccessTester {
                 .name("holding")
                 .variable("x")
                 .build();
-        assertTrue("Domain contains the (holding ?x) predicate", domain.getPredicates().asSet().contains(holding));
+        assertTrue(domain.getPredicates().contains(holding), "Domain contains the (holding ?x) predicate");
     }
 
     @Test
@@ -98,100 +103,100 @@ public class BlocksWorldIT extends DomainSuccessTester {
                 .variable("x")
                 .variable("y")
                 .build();
-        assertTrue("Domain contains the (on ?x ?y) predicate", domain.getPredicates().asSet().contains(on));
+        assertTrue(domain.getPredicates().contains(on), "Domain contains the (on ?x ?y) predicate");
     }
 
     @Test
     public void blocksWorldDomainHasFourActions() {
-        assertEquals(4, domain.getActions().asSet().size());
+        assertEquals(4, domain.getActions().size());
     }
 
     @Test
     public void blocksWorldDomainHasActionPickup() {
-        Action pickup = new Action.Builder()
+        Action pickup = Action.builder()
                 .name("pickup")
-                .parameter("ob")
-                .precondition(
+                .parameter(new Variable("ob"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("clear", variable("ob")),
                                 predicate("on-table", variable("ob")),
                                 predicate("arm-empty"))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("holding", variable("ob")),
                                 not(predicate("clear", variable("ob"))),
                                 not(predicate("on-table", variable("ob"))),
                                 not(predicate("arm-empty")))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the pickup action", domain.getActions().asSet().contains(pickup));
+        assertTrue(domain.getActions().contains(pickup), "Domain contains the pickup action");
     }
 
     @Test
     public void blocksWorldDomainHasActionPutDown() {
-        Action putDown = new Action.Builder()
+        Action putDown = Action.builder()
                 .name("putdown")
-                .parameter("ob")
-                .precondition(
+                .parameter(new Variable("ob"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("holding", variable("ob")))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("clear", variable("ob")),
                                 predicate("arm-empty"),
                                 predicate("on-table", variable("ob")),
                                 not(predicate("holding", variable("ob"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the putdown action", domain.getActions().asSet().contains(putDown));
+        assertTrue(domain.getActions().contains(putDown), "Domain contains the putdown action");
     }
 
     @Test
     public void blocksWorldDomainHasActionStack() {
-        Action stack = new Action.Builder()
+        Action stack = Action.builder()
                 .name("stack")
-                .parameter("ob")
-                .parameter("underob")
-                .precondition(
+                .parameter(new Variable("ob"))
+                .parameter(new Variable("underob"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("clear", variable("underob")),
                                 predicate("holding", variable("ob")))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("arm-empty"),
                                 predicate("clear", variable("ob")),
                                 predicate("on", variable("ob"), variable("underob")),
                                 not(predicate("clear", variable("underob"))),
                                 not(predicate("holding", variable("ob"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the stack action", domain.getActions().asSet().contains(stack));
+        assertTrue(domain.getActions().contains(stack), "Domain contains the stack action");
     }
 
     @Test
     public void blocksWorldDomainHasActionUnstack() {
-        Action unstack = new Action.Builder()
+        Action unstack = Action.builder()
                 .name("unstack")
-                .parameter("ob")
-                .parameter("underob")
-                .precondition(
+                .parameter(new Variable("ob"))
+                .parameter(new Variable("underob"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("on", variable("ob"), variable("underob")),
                                 predicate("clear", variable("ob")),
                                 predicate("arm-empty"))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("holding", variable("ob")),
                                 predicate("clear", variable("underob")),
                                 not(predicate("on", variable("ob"), variable("underob"))),
                                 not(predicate("clear", variable("ob"))),
                                 not(predicate("arm-empty")))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the unstack action", domain.getActions().asSet().contains(unstack));
+        assertTrue(domain.getActions().contains(unstack), "Domain contains the unstack action");
     }
 }

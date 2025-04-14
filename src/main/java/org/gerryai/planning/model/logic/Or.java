@@ -17,6 +17,8 @@
  */
 package org.gerryai.planning.model.logic;
 
+import org.gerryai.planning.model.logic.impl.Formula;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

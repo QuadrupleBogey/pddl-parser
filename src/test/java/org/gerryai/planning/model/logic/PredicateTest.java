@@ -18,18 +18,19 @@
 package org.gerryai.planning.model.logic;
 
 import com.google.common.testing.EqualsTester;
-import org.junit.Test;
+import org.gerryai.planning.model.logic.impl.Term;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.gerryai.planning.model.logic.FormulaBuilder.variable;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PredicateTest {
 
     @Test
-    public void getPredicateNameReturnsSameName() {
+    void getPredicateNameReturnsSameName() {
         Predicate predicate = new Predicate.Builder()
                 .name("test")
                 .build();
@@ -37,7 +38,7 @@ public class PredicateTest {
     }
 
     @Test
-    public void getVariablesReturnsSameVariables() {
+    void getVariablesReturnsSameVariables() {
         List<Term> terms = new ArrayList<>(2);
         terms.add(variable("a"));
         terms.add(variable("b"));
@@ -50,7 +51,7 @@ public class PredicateTest {
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         new EqualsTester()
                 .addEqualityGroup(
                         new Predicate.Builder()

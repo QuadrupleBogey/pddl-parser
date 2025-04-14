@@ -17,10 +17,12 @@
  */
 package org.gerryai.planning.model.logic;
 
+import org.gerryai.planning.model.logic.impl.Type;
+
 import java.util.Objects;
 
 /**
- * Represents the type of a logical constant or variable. A primitive type is effectively just a type name.
+ * Represents the type of logical constant or variable. A primitive type is effectively just a type name.
  */
 public class PrimitiveType implements Type {
 

@@ -25,70 +25,41 @@ import org.gerryai.planning.model.domain.Domain;
 import org.gerryai.planning.model.problem.Problem;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31Parser;
 import org.gerryai.planning.parser.pddl.internal.error.SyntaxErrorCollector;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.Mock;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 
 /**
  * Unit tests for the {@link org.gerryai.planning.parser.pddl.internal.PDDLParser} class.
  */
 public class PDDLParserTest {
 
-    @Mock
-    private PDDLParserUtils mockUtils;
+    
+    private static final PDDLParserUtils mockUtils = mock(PDDLParserUtils.class);
+    private static final CharStream mockCharStream = mock(CharStream.class);
+    private static final Lexer mockLexer = mock(Lexer.class);
+    private static final InputStream mockInputStream = mock(InputStream.class);
+    private static final TokenStream mockTokenStream = mock(TokenStream.class);
+    private static final SyntaxErrorCollector mockSyntaxErrorCollector = mock(SyntaxErrorCollector.class);
+    private static final PDDL31Parser mockParser = mock(PDDL31Parser.class);
+    private static final ParseTreeWalker mockParseTreeWalker = mock(ParseTreeWalker.class);
+    private static final ExtractDomainListener mockExtractDomainListener = mock(ExtractDomainListener.class);
+    private static final ExtractProblemListener mockExtractProblemListener = mock(ExtractProblemListener.class);
+    private static final PDDL31Parser.DomainContext mockDomainParseTree = mock(PDDL31Parser.DomainContext.class);
+    private static final PDDL31Parser.ProblemContext mockProblemParseTree = mock(PDDL31Parser.ProblemContext.class);
+    private static final Domain mockDomain = mock(Domain.class);
+    private static final Problem mockProblem = mock(Problem.class);
 
-    @Mock
-    private CharStream mockCharStream;
+    private static PDDLParser parserService;
 
-    @Mock
-    private Lexer mockLexer;
-
-    @Mock
-    private InputStream mockInputStream;
-
-    @Mock
-    private TokenStream mockTokenStream;
-
-
-    @Mock
-    private SyntaxErrorCollector mockSyntaxErrorCollector;
-
-    @Mock
-    private PDDL31Parser mockParser;
-
-    @Mock
-    private ParseTreeWalker mockParseTreeWalker;
-
-    @Mock
-    private ExtractDomainListener mockExtractDomainListener;
-
-    @Mock
-    private ExtractProblemListener mockExtractProblemListener;
-
-    @Mock
-    private PDDL31Parser.DomainContext mockDomainParseTree;
-
-    @Mock
-    private PDDL31Parser.ProblemContext mockProblemParseTree;
-
-    @Mock
-    private Domain mockDomain;
-
-    @Mock
-    private Problem mockProblem;
-
-    private PDDLParser parserService;
-
-    @Before
-    public void setup() throws Exception {
-        initMocks(this);
+    @BeforeAll
+    public static void setup() throws Exception {
         when(mockUtils.createInputStream(mockInputStream)).thenReturn(mockCharStream);
         when(mockUtils.createLexer(mockCharStream)).thenReturn(mockLexer);
         when(mockUtils.createTokenStream(mockLexer)).thenReturn(mockTokenStream);

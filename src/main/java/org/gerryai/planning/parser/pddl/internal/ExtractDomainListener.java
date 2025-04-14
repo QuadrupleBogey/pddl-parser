@@ -22,12 +22,15 @@ import org.gerryai.planning.model.ConstantDefinition;
 import org.gerryai.planning.model.Requirement;
 import org.gerryai.planning.model.domain.Action;
 import org.gerryai.planning.model.domain.Domain;
+import org.gerryai.planning.model.domain.Effect;
+import org.gerryai.planning.model.domain.Precondition;
 import org.gerryai.planning.model.domain.TypeDefinition;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.error.MissingRequirementsException;
 import org.gerryai.planning.parser.error.ParseException;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31Parser;
+import org.gerryai.planning.parser.pddl.internal.impl.ExtractingListener;
 import org.gerryai.planning.parser.pddl.internal.logic.ConstantDefinitionStash;
 import org.gerryai.planning.parser.pddl.internal.logic.LogicStackHandler;
 import org.gerryai.planning.parser.pddl.internal.logic.TypeDefinitionStash;
@@ -44,19 +47,19 @@ import static com.google.common.base.Preconditions.checkState;
  */
 public class ExtractDomainListener extends LogicListener implements ExtractingListener<Domain> {
 
-    private Domain.Builder domainBuilder;
+    private Domain.DomainBuilder domainBuilder;
 
-    private Action.Builder actionBuilder;
+    private Action.ActionBuilder actionBuilder;
 
     /**
      * The stash of types awaiting collection.
      */
-    private TypeDefinitionStash typeDefinitionStash = new TypeDefinitionStash();
+    private final TypeDefinitionStash typeDefinitionStash = new TypeDefinitionStash();
 
     /**
      * The stash of constants awaiting collection.
      */
-    private ConstantDefinitionStash constantDefinitionStash = new ConstantDefinitionStash();
+    private final ConstantDefinitionStash constantDefinitionStash = new ConstantDefinitionStash();
 
     /**
      * Constructor.
@@ -73,18 +76,17 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
 
     @Override
     public void exitTypeDefListOfNoType(@NotNull final PDDL31Parser.TypeDefListOfNoTypeContext ctx) {
-        List<TypeDefinition> types = typeDefinitionStash.removeAll();
-        for (TypeDefinition type: types) {
-            domainBuilder = domainBuilder.type(type);
+        List<TypeDefinition> listTypes = typeDefinitionStash.removeAll();
+        for (TypeDefinition type: listTypes) {
+            domainBuilder.type(type);
         }
     }
 
     @Override
     public void exitTypeDefListOfType(@NotNull final PDDL31Parser.TypeDefListOfTypeContext ctx) {
         Type parentType = getType();
-        List<TypeDefinition> types = typeDefinitionStash.removeAll();
-        for (TypeDefinition type: types) {
-            domainBuilder = domainBuilder.type(new TypeDefinition(type.getName(), parentType));
+        for (TypeDefinition type: typeDefinitionStash.removeAll()) {
+            domainBuilder.type(new TypeDefinition(type.getName(), parentType));
         }
     }
 
@@ -95,29 +97,24 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
 
     @Override
     public void exitConstantDefListOfNoType(@NotNull final PDDL31Parser.ConstantDefListOfNoTypeContext ctx) {
-        List<ConstantDefinition> constants = constantDefinitionStash.removeAll();
-        for (ConstantDefinition constant: constants) {
-            domainBuilder = domainBuilder.constant(constant);
-        }
+        constantDefinitionStash.removeAll().forEach(domainBuilder::constant);
     }
 
     @Override
     public void exitConstantDefListOfType(@NotNull final PDDL31Parser.ConstantDefListOfTypeContext ctx) {
         Type type = getType();
-        List<ConstantDefinition> constants = constantDefinitionStash.removeAll();
-        for (ConstantDefinition constant: constants) {
-            domainBuilder = domainBuilder.constant(new ConstantDefinition(constant.getName(), type));
-        }
+        constantDefinitionStash.removeAll()
+                .forEach(constant -> domainBuilder.constant(new ConstantDefinition(constant.getName(), type)));
     }
 
     @Override
     public void enterDomain(@NotNull final PDDL31Parser.DomainContext ctx) {
-        domainBuilder = new Domain.Builder();
+        domainBuilder = Domain.builder();
     }
 
     @Override
     public void exitDomainName(@NotNull final PDDL31Parser.DomainNameContext ctx) {
-        domainBuilder = domainBuilder.name(ctx.NAME().getSymbol().getText().toLowerCase());
+        domainBuilder.name(ctx.NAME().getSymbol().getText().toLowerCase());
     }
 
     @Override
@@ -125,12 +122,12 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
         String text = ctx.getText();
         String requirementName = text.substring(1);
         Requirement requirement = Requirement.valueOf(requirementName.toUpperCase().replace('-', '_'));
-        domainBuilder = domainBuilder.requirement(requirement);
+        domainBuilder.requirement(requirement);
     }
 
     @Override
     public void exitPredicateDef(@NotNull final PDDL31Parser.PredicateDefContext ctx) {
-        domainBuilder = domainBuilder.predicate(getPredicate());
+        domainBuilder.predicate(getPredicate());
     }
 
     @Override
@@ -141,7 +138,7 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
 
     @Override
     public void enterActionDef(@NotNull final PDDL31Parser.ActionDefContext ctx) {
-        actionBuilder = new Action.Builder();
+        actionBuilder = Action.builder();
     }
 
     @Override
@@ -174,16 +171,16 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
      */
     @Override
     public void exitActionEffect(@NotNull final PDDL31Parser.ActionEffectContext ctx) {
-        actionBuilder.effect(getFormula());
+        actionBuilder.effect(new Effect(getFormula()));
     }
 
     @Override public void exitActionPrecondition(@NotNull final PDDL31Parser.ActionPreconditionContext ctx) {
-        actionBuilder.precondition(getFormula());
+        actionBuilder.precondition(new Precondition(getFormula()));
     }
 
     @Override
     public void exitActionDef(@NotNull final PDDL31Parser.ActionDefContext ctx) {
-        domainBuilder = domainBuilder.action(actionBuilder.build());
+        domainBuilder.action(actionBuilder.build());
     }
 
     @Override
@@ -194,7 +191,7 @@ public class ExtractDomainListener extends LogicListener implements ExtractingLi
     @Override
     public Domain extract(final Set<Requirement> requirementsNeeded) throws ParseException {
         Domain domain = extract();
-        Set<Requirement> requirementsDeclared = domain.getRequirements().asSet();
+        Set<Requirement> requirementsDeclared = domain.getRequirements();
         Set<Requirement> requirementsMissing = new HashSet<>();
         for (Requirement requirement: requirementsNeeded) {
             if (!requirementsDeclared.contains(requirement)) {

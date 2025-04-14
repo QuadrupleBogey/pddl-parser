@@ -17,19 +17,19 @@
  */
 package org.gerryai.planning.parser.pddl.internal;
 
-import com.google.common.base.Optional;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.gerryai.planning.model.domain.FunctionDefinition;
 import org.gerryai.planning.model.logic.Constant;
-import org.gerryai.planning.model.logic.Formula;
+import org.gerryai.planning.model.logic.impl.Formula;
 import org.gerryai.planning.model.logic.Predicate;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31BaseListener;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31Parser;
 import org.gerryai.planning.parser.pddl.internal.logic.LogicStackHandler;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Listener for extracting a {@link org.gerryai.planning.model.domain.Domain} when walking the parse tree of a PDDL

@@ -18,20 +18,20 @@
 package org.gerryai.planning.model.logic;
 
 import com.google.common.testing.EqualsTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PrimitiveTypeTest {
 
     @Test
-    public void getConstantNameReturnsSameName() {
+     void getConstantNameReturnsSameName() {
         PrimitiveType primitiveType = new PrimitiveType("test");
         assertEquals("test", primitiveType.getName());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         new EqualsTester()
                 .addEqualityGroup(new PrimitiveType("test"), new PrimitiveType("test"))
                 .addEqualityGroup(new PrimitiveType("example"), new PrimitiveType("example"))

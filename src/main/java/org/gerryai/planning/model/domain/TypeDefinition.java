@@ -17,8 +17,9 @@
  */
 package org.gerryai.planning.model.domain;
 
+import lombok.Value;
 import org.gerryai.planning.model.logic.PrimitiveType;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 
 import java.util.Objects;
 
@@ -26,11 +27,11 @@ import java.util.Objects;
  * Defines a type used by the domain being described.
  * Note that the parent of a type definition is a type, not a type definition.
  */
+@Value
 public class TypeDefinition {
 
-    private String name;
-
-    private Type parent;
+    String name;
+    Type parent;
 
     private static final PrimitiveType OBJECT = new PrimitiveType("object");
 
@@ -59,22 +60,6 @@ public class TypeDefinition {
     public TypeDefinition(final String name, final Type parent) {
         this.name = name;
         this.parent = parent;
-    }
-
-    /**
-     * Get the name of the type.
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the parent of this type.
-     * @return the parent type
-     */
-    public Type getParent() {
-        return parent;
     }
 
     @Override

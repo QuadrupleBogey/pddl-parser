@@ -3,16 +3,16 @@
  * Copyright (c) 2014 David Edwards <david@more.fool.me.uk>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General  License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General  License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General  License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.gerryai.planning.parser.pddl.integration.example.blocksworld;
@@ -20,11 +20,13 @@ package org.gerryai.planning.parser.pddl.integration.example.blocksworld;
 import org.gerryai.planning.model.ConstantDefinition;
 import org.gerryai.planning.model.problem.Goal;
 import org.gerryai.planning.parser.pddl.integration.ProblemSuccessTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.gerryai.planning.model.logic.FormulaBuilder.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.gerryai.planning.model.logic.FormulaBuilder.and;
+import static org.gerryai.planning.model.logic.FormulaBuilder.constant;
+import static org.gerryai.planning.model.logic.FormulaBuilder.predicate;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that the Blocksworld example files are parsed correctly.
@@ -36,257 +38,257 @@ public class BlocksWorldPb15IT extends ProblemSuccessTester {
     }
 
     @Test
-    public void blocksWorldProblem15HasCorrectName() {
+    void blocksWorldProblem15HasCorrectName() {
         assertEquals("pb15", problem.getName());
     }
 
     @Test
-    public void blocksWorldProblem15HasCorrectDomain() {
+    void blocksWorldProblem15HasCorrectDomain() {
         assertEquals("blocksworld", problem.getDomainName());
     }
 
     @Test
-    public void blocksWorldProblem15Has15Objects() {
-        assertEquals(15, problem.getObjects().asSet().size());
+    void blocksWorldProblem15Has15Objects() {
+        assertEquals(15, problem.getObjects().size());
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectA() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("a")));
+    void blocksWorldProblem15HasObjectA() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("a")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectB() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("b")));
+    void blocksWorldProblem15HasObjectB() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("b")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectC() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("c")));
+    void blocksWorldProblem15HasObjectC() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("c")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectD() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("d")));
+    void blocksWorldProblem15HasObjectD() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("d")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectE() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("e")));
+    void blocksWorldProblem15HasObjectE() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("e")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectF() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("f")));
+    void blocksWorldProblem15HasObjectF() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("f")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectG() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("g")));
+    void blocksWorldProblem15HasObjectG() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("g")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectH() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("h")));
+    void blocksWorldProblem15HasObjectH() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("h")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectI() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("i")));
+    void blocksWorldProblem15HasObjectI() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("i")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectJ() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("j")));
+    void blocksWorldProblem15HasObjectJ() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("j")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectK() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("k")));
+    void blocksWorldProblem15HasObjectK() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("k")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectL() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("l")));
+    void blocksWorldProblem15HasObjectL() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("l")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectM() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("m")));
+    void blocksWorldProblem15HasObjectM() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("m")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectN() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("n")));
+    void blocksWorldProblem15HasObjectN() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("n")));
     }
 
     @Test
-    public void blocksWorldProblem15HasObjectO() {
-        assertTrue(problem.getObjects().asSet().contains(new ConstantDefinition("o")));
+    void blocksWorldProblem15HasObjectO() {
+        assertTrue(problem.getObjects().contains(new ConstantDefinition("o")));
     }
 
     @Test
-    public void blocksWorldProblem15Has31StateFormulas() {
-        assertEquals(31, problem.getInitialState().asSet().size());
+    void blocksWorldProblem15Has31StateFormulas() {
+        assertEquals(31, problem.getInitialStates().size());
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableA() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("a"))));
+    void blocksWorldProblem15InitialStateHasOnTableA() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("a"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableB() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("b"))));
+    void blocksWorldProblem15InitialStateHasOnTableB() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("b"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableC() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("c"))));
+    void blocksWorldProblem15InitialStateHasOnTableC() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("c"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableD() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("d"))));
+    void blocksWorldProblem15InitialStateHasOnTableD() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("d"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableE() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("e"))));
+    void blocksWorldProblem15InitialStateHasOnTableE() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("e"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableF() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("f"))));
+    void blocksWorldProblem15InitialStateHasOnTableF() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("f"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableG() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("g"))));
+    void blocksWorldProblem15InitialStateHasOnTableG() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("g"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableH() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("h"))));
+    void blocksWorldProblem15InitialStateHasOnTableH() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("h"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableI() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("i"))));
+    void blocksWorldProblem15InitialStateHasOnTableI() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("i"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableJ() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("j"))));
+    void blocksWorldProblem15InitialStateHasOnTableJ() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("j"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableK() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("k"))));
+    void blocksWorldProblem15InitialStateHasOnTableK() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("k"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableL() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("l"))));
+    void blocksWorldProblem15InitialStateHasOnTableL() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("l"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableM() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("m"))));
+    void blocksWorldProblem15InitialStateHasOnTableM() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("m"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableN() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("n"))));
+    void blocksWorldProblem15InitialStateHasOnTableN() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("n"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasOnTableO() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("on-table", constant("o"))));
+    void blocksWorldProblem15InitialStateHasOnTableO() {
+        assertTrue(problem.getInitialStates().contains(predicate("on-table", constant("o"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearA() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("a"))));
+    void blocksWorldProblem15InitialStateHasClearA() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("a"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearB() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("b"))));
+    void blocksWorldProblem15InitialStateHasClearB() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("b"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearC() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("c"))));
+    void blocksWorldProblem15InitialStateHasClearC() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("c"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearD() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("d"))));
+    void blocksWorldProblem15InitialStateHasClearD() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("d"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearE() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("e"))));
+    void blocksWorldProblem15InitialStateHasClearE() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("e"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearF() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("f"))));
+    void blocksWorldProblem15InitialStateHasClearF() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("f"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearG() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("g"))));
+    void blocksWorldProblem15InitialStateHasClearG() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("g"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearH() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("h"))));
+    void blocksWorldProblem15InitialStateHasClearH() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("h"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearI() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("i"))));
+    void blocksWorldProblem15InitialStateHasClearI() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("i"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearJ() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("j"))));
+    void blocksWorldProblem15InitialStateHasClearJ() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("j"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearK() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("k"))));
+    void blocksWorldProblem15InitialStateHasClearK() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("k"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearL() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("l"))));
+    void blocksWorldProblem15InitialStateHasClearL() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("l"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearM() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("m"))));
+    void blocksWorldProblem15InitialStateHasClearM() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("m"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearN() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("n"))));
+    void blocksWorldProblem15InitialStateHasClearN() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("n"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasClearO() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("clear", constant("o"))));
+    void blocksWorldProblem15InitialStateHasClearO() {
+        assertTrue(problem.getInitialStates().contains(predicate("clear", constant("o"))));
     }
 
     @Test
-    public void blocksWorldProblem15InitialStateHasArmEmpty() {
-        assertTrue(problem.getInitialState().asSet().contains(predicate("arm-empty")));
+    void blocksWorldProblem15InitialStateHasArmEmpty() {
+        assertTrue(problem.getInitialStates().contains(predicate("arm-empty")));
     }
 
     @Test
-    public void blocksWorldProblem15HasGoal() {
+    void blocksWorldProblem15HasGoal() {
         Goal goal = new Goal(
                 and(
                         predicate("on", constant("a"), constant("b")),

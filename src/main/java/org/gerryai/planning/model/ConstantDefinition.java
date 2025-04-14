@@ -17,10 +17,10 @@
  */
 package org.gerryai.planning.model;
 
-import com.google.common.base.Optional;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Defines a constant used by the domain being described.
@@ -29,7 +29,7 @@ public class ConstantDefinition {
 
     private String name;
 
-    private Optional<Type> type = Optional.absent();
+    private Optional<Type> type = Optional.empty();
 
     /**
      * Constructor.
@@ -46,7 +46,7 @@ public class ConstantDefinition {
      */
     public ConstantDefinition(final String name, final Type type) {
         this.name = name;
-        this.type = Optional.fromNullable(type);
+        this.type = Optional.ofNullable(type);
     }
 
     /**

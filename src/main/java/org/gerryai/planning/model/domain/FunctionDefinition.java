@@ -17,50 +17,30 @@
  */
 package org.gerryai.planning.model.domain;
 
-import org.gerryai.planning.model.logic.AtomicFormula;
-import org.gerryai.planning.model.logic.Term;
-import org.gerryai.planning.model.logic.Type;
-import org.gerryai.planning.model.logic.Variable;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Singular;
+import lombok.Value;
+import org.gerryai.planning.model.logic.impl.AtomicFormula;
+import org.gerryai.planning.model.logic.impl.Term;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 /**
  *Represents a logical function.
  */
+@Builder
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class FunctionDefinition implements AtomicFormula {
 
-    private String name;
-
-    private List<Term> terms;
-
-    /**
-     * Constructor.
-     * @param name the name of the function
-     * @param terms the terms for this function
-     */
-    private FunctionDefinition(final String name, final List<Term> terms) {
-        this.name = name;
-        this.terms = terms;
-    }
-
-    /**
-     * Get the name of the function.
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get a list of terms used by this function.
-     * @return the terms
-     */
-    public List<Term> getTerms() {
-        return Collections.unmodifiableList(terms);
-    }
+    String name;
+    @Singular
+    List<Term> terms;
 
     @Override
     public int hashCode() {
@@ -77,79 +57,5 @@ public class FunctionDefinition implements AtomicFormula {
         }
         final FunctionDefinition other = (FunctionDefinition) obj;
         return Objects.equals(this.name, other.name) && Objects.equals(this.terms, other.terms);
-    }
-
-    /**
-     * Builder class for {@link FunctionDefinition}.
-     */
-    public static class Builder {
-        private String name;
-        private List<Term> terms;
-
-        /**
-         * Constructor.
-         */
-        public Builder() {
-            terms = new ArrayList<>(0);
-        }
-
-        /**
-         * Set the name of the function to be built.
-         * @param name the name
-         * @return an updated builder
-         */
-        public Builder name(final String name) {
-            this.name = name;
-            return this;
-        }
-
-        /**
-         * Add a new variable to the list of terms to be used by this function.
-         * @param name the name of the variable
-         * @return an updated builder
-         */
-        public Builder variable(final String name) {
-            terms.add(new Variable(name));
-            return this;
-        }
-
-        /**
-         * Add a new variable to the list of terms to be used by this function.
-         * @param name the name of the variable
-         * @param type the type of the variable
-         * @return an updated builder
-         */
-        public Builder variable(final String name, final Type type) {
-            terms.add(new Variable(name, type));
-            return this;
-        }
-
-        /**
-         * Add a new variable to the list of terms to be used by this function.
-         * @param variable the variable to add
-         * @return an updated builder
-         */
-        public Builder variable(final Variable variable) {
-            terms.add(variable);
-            return this;
-        }
-
-        /**
-         * Add a term to the list to be used by the function.
-         * @param term the term to add
-         * @return an updated builder
-         */
-        public Builder term(final Term term) {
-            terms.add(term);
-            return this;
-        }
-
-        /**
-         * Build the finished function.
-         * @return the function
-         */
-        public FunctionDefinition build() {
-            return new FunctionDefinition(name, terms);
-        }
     }
 }

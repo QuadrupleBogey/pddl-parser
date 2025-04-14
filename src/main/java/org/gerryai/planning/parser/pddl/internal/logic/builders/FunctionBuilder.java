@@ -18,7 +18,7 @@
 package org.gerryai.planning.parser.pddl.internal.logic.builders;
 
 import org.gerryai.planning.model.domain.FunctionDefinition;
-import org.gerryai.planning.model.logic.Term;
+import org.gerryai.planning.model.logic.impl.Term;
 import org.gerryai.planning.parser.pddl.internal.logic.FormulaStash;
 import org.gerryai.planning.parser.pddl.internal.logic.SymbolStash;
 import org.gerryai.planning.parser.pddl.internal.logic.TermStash;
@@ -36,7 +36,8 @@ public class FunctionBuilder implements FormulaBuilder<FunctionDefinition> {
         checkState(!symbolStash.isEmpty(), "Cannot build a function without a symbol");
         checkState(formulaStash.isEmpty(), "Not expecting any uncollected formulas");
 
-        FunctionDefinition.Builder functionBuilder = new FunctionDefinition.Builder().name(symbolStash.pop());
+        FunctionDefinition.FunctionDefinitionBuilder functionBuilder =
+                FunctionDefinition.builder().name(symbolStash.pop());
         for (Term term : termStash.terms()) {
             functionBuilder = functionBuilder.term(term);
         }

@@ -17,17 +17,21 @@
  */
 package org.gerryai.planning.model.domain;
 
-import com.google.common.base.Optional;
-import org.gerryai.planning.model.logic.Formula;
+import lombok.AllArgsConstructor;
+import lombok.Value;
+import org.gerryai.planning.model.logic.impl.Formula;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Class encapsulating the effect of an action.
  */
-public class Effect {
+@Value
+@AllArgsConstructor
+public class Effect implements Formula {
 
-    private final Optional<Formula> effect;
+    Optional<Formula> effect;
 
     private static final Effect EMPTY = new Effect();
 
@@ -43,15 +47,7 @@ public class Effect {
      * Private constructor to create an empty effect.
      */
     private Effect() {
-        effect = Optional.absent();
-    }
-
-    /**
-     * Constructor.
-     * @param effect the formula describing the effect
-     */
-    public Effect(final Formula effect) {
-        this.effect = Optional.fromNullable(effect);
+        effect = Optional.empty();
     }
 
     /**

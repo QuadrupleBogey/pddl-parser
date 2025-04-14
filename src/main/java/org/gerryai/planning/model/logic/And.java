@@ -17,6 +17,9 @@
  */
 package org.gerryai.planning.model.logic;
 
+import lombok.Value;
+import org.gerryai.planning.model.logic.impl.Formula;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -26,9 +29,10 @@ import java.util.Objects;
  * Represents a conjunctive formula.
  * Note that {@link #equals(Object)} is not implemented as a logical equality check; the order of the formulas matters.
  */
+@Value
 public class And implements Formula {
 
-    private List<Formula> conjuncts;
+    List<Formula> conjuncts;
 
     /**
      * Constructor.

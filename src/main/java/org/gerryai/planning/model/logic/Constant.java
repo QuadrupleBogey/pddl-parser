@@ -17,30 +17,25 @@
  */
 package org.gerryai.planning.model.logic;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Value;
+import org.gerryai.planning.model.logic.impl.Term;
+
 import java.util.Objects;
 
 /**
- * Class representing a logical constant.
+ * Record representing a logical constant.
  */
+@Builder
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Constant implements Term {
 
-    private String name;
-
-    /**
-     * Constructor.
-     * @param name the name of the constant
-     */
-    public Constant(final String name) {
-        this.name = name;
-    }
-
-    /**
-     * Get the name of the constant.
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
+    String name;
 
     @Override
     public int hashCode() {

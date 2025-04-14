@@ -19,6 +19,9 @@ package org.gerryai.planning.model.logic;
 
 import org.gerryai.planning.model.ConstantDefinition;
 import org.gerryai.planning.model.domain.TypeDefinition;
+import org.gerryai.planning.model.logic.impl.Formula;
+import org.gerryai.planning.model.logic.impl.Term;
+import org.gerryai.planning.model.logic.impl.Type;
 
 /**
  * Utility class containing methods for building formulas.

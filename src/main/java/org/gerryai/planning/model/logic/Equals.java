@@ -17,11 +17,15 @@
  */
 package org.gerryai.planning.model.logic;
 
+import org.gerryai.planning.model.logic.impl.Formula;
+import org.gerryai.planning.model.logic.impl.Term;
+
 import java.util.Objects;
 
 /**
  * Class representing an equality expression.
  */
+
 public class Equals implements Formula {
 
     private Term left;
