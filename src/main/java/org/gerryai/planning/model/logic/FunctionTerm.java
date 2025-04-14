@@ -17,6 +17,10 @@
  */
 package org.gerryai.planning.model.logic;
 
+import org.gerryai.planning.model.logic.impl.AtomicFormula;
+import org.gerryai.planning.model.logic.impl.Term;
+import org.gerryai.planning.model.logic.impl.Type;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;

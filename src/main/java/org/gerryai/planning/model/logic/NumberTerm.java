@@ -1,5 +1,7 @@
 package org.gerryai.planning.model.logic;
 
+import org.gerryai.planning.model.logic.impl.Term;
+
 import java.util.Objects;
 
 /**

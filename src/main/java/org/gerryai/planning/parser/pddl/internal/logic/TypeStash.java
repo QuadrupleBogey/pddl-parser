@@ -19,7 +19,7 @@ package org.gerryai.planning.parser.pddl.internal.logic;
 
 import org.gerryai.planning.model.logic.EitherType;
 import org.gerryai.planning.model.logic.PrimitiveType;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

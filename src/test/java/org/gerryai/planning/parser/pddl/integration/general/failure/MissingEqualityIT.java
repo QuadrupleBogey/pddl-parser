@@ -19,10 +19,10 @@ package org.gerryai.planning.parser.pddl.integration.general.failure;
 
 import org.gerryai.planning.model.Requirement;
 import org.gerryai.planning.parser.pddl.integration.PDDLDomainLoader;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that the paser copes with missing requirements.
@@ -35,7 +35,7 @@ public class MissingEqualityIT extends PDDLDomainLoader {
     }
 
     @Test
-    public void parseFailsWithMissingEqualityRequirement() {
+    void parseFailsWithMissingEqualityRequirement() {
         assertEquals(1, missingRequirements.size());
         assertTrue(missingRequirements.contains(Requirement.EQUALITY));
     }

@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.gerryai.planning.model.logic;
+package org.gerryai.planning.model.logic.impl;
 
 /**
- * Created by david on 01/04/14.
+ * Interface representing a logical term.
  */
-public interface Type {
+public interface Term {
 }

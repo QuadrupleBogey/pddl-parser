@@ -20,8 +20,8 @@ package org.gerryai.planning.parser.pddl.internal.logic;
 import com.google.common.base.Optional;
 import org.gerryai.planning.model.logic.Constant;
 import org.gerryai.planning.model.logic.NumberTerm;
-import org.gerryai.planning.model.logic.Term;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Term;
+import org.gerryai.planning.model.logic.impl.Type;
 import org.gerryai.planning.model.logic.Variable;
 
 import java.util.ArrayDeque;

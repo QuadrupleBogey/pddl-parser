@@ -17,32 +17,25 @@
  */
 package org.gerryai.planning.model.problem;
 
-import org.gerryai.planning.model.logic.Formula;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.Value;
+import org.gerryai.planning.model.logic.impl.Formula;
 
 import java.util.Objects;
 
 /**
  * Represents the goal of a planning problem, described by a formula.
  */
+@Builder
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Goal {
 
-    private Formula formula;
-
-    /**
-     * Constructor.
-     * @param formula the formula describing the goal state
-     */
-    public Goal(final Formula formula) {
-        this.formula = formula;
-    }
-
-    /**
-     * Get the formula describing the goal state.
-     * @return the formula
-     */
-    public Formula getFormula() {
-        return formula;
-    }
+    Formula formula;
 
     @Override
     public int hashCode() {

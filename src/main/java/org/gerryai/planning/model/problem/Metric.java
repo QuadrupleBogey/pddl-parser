@@ -1,6 +1,6 @@
 package org.gerryai.planning.model.problem;
 
-import org.gerryai.planning.model.logic.Formula;
+import org.gerryai.planning.model.logic.impl.Formula;
 
 /**
  * Represents a metric to evaluate a plan.

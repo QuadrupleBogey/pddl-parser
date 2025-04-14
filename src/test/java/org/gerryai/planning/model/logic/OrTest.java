@@ -18,19 +18,20 @@
 package org.gerryai.planning.model.logic;
 
 import com.google.common.testing.EqualsTester;
-import org.junit.Test;
+import org.gerryai.planning.model.logic.impl.Formula;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class OrTest {
 
-    private Formula mockFormulaA = mock(Formula.class);
-    private Formula mockFormulaB = mock(Formula.class);
-    private Formula mockFormulaC = mock(Formula.class);
+    Formula mockFormulaA = mock(Formula.class);
+    Formula mockFormulaB = mock(Formula.class);
+    Formula mockFormulaC = mock(Formula.class);
 
     @Test
     public void asListReturnsNoFormulas() {

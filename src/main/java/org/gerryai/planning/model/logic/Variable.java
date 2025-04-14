@@ -17,17 +17,21 @@
  */
 package org.gerryai.planning.model.logic;
 
-import com.google.common.base.Optional;
+import lombok.Getter;
+import org.gerryai.planning.model.logic.impl.Term;
+import org.gerryai.planning.model.logic.impl.Type;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Class representing a logical variable.
  */
+@Getter
 public class Variable implements Term {
 
-    private String name;
-    private Optional<Type> type = Optional.absent();
+    private final String name;
+    private Optional<Type> type = Optional.empty();
 
     /**
      * Constructor.
@@ -44,23 +48,7 @@ public class Variable implements Term {
      */
     public Variable(final String name, final Type type) {
         this.name = name;
-        this.type = Optional.fromNullable(type);
-    }
-
-    /**
-     * Get the name of the variable.
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Get the type of the variable.
-     * @return the optional type of this variable
-     */
-    public Optional<Type> getType() {
-        return type;
+        this.type = Optional.ofNullable(type);
     }
 
     @Override

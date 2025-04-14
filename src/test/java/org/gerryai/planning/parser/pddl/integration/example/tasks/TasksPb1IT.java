@@ -3,33 +3,33 @@
  * Copyright (c) 2014 David Edwards <david@more.fool.me.uk>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General  License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General  License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General  License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.gerryai.planning.parser.pddl.integration.example.tasks;
 
 import org.gerryai.planning.model.logic.Constant;
-import org.gerryai.planning.model.logic.Formula;
+import org.gerryai.planning.model.logic.impl.Formula;
 import org.gerryai.planning.model.logic.FunctionTerm;
 import org.gerryai.planning.model.logic.NumberTerm;
 import org.gerryai.planning.model.logic.Operation;
 import org.gerryai.planning.parser.pddl.integration.ProblemSuccessTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that the Blocksworld example files are parsed correctly.
@@ -41,13 +41,13 @@ public class TasksPb1IT extends ProblemSuccessTester {
     }
 
     @Test
-    public void tasksDomainHasCorrectName() {
+     void tasksDomainHasCorrectName() {
         assertEquals("pb1", problem.getName());
     }
 
     @Test
-    public void hasThreeAssignmentOperations() {
-        Set<Formula> allStateFormulas = problem.getInitialState().asSet();
+     void hasThreeAssignmentOperations() {
+        Set<Formula> allStateFormulas = problem.getInitialStates();
         Set<Formula> onlyOperations = new HashSet<>();
         for (Formula allStateFormula : allStateFormulas) {
             if (allStateFormula instanceof Operation) {
@@ -59,7 +59,7 @@ public class TasksPb1IT extends ProblemSuccessTester {
     }
 
     @Test
-    public void containsAllRequiresRewardOperations() throws Exception {
+     void containsAllRequiresRewardOperations() throws Exception {
         Operation mark = new Operation.Builder()
             .operator("=")
             .antecedent(new FunctionTerm.Builder().term(new NumberTerm("50")).build())
@@ -84,7 +84,7 @@ public class TasksPb1IT extends ProblemSuccessTester {
             .consequent(new FunctionTerm.Builder().name("requires_reward").term(new Constant("phil")).build())
             .build();
 
-        Set<Formula> formulas = problem.getInitialState().asSet();
+        Set<Formula> formulas = problem.getInitialStates();
         assertTrue(formulas.contains(mark));
         assertTrue(formulas.contains(toby));
         assertTrue(formulas.contains(luke));
@@ -92,19 +92,19 @@ public class TasksPb1IT extends ProblemSuccessTester {
     }
 
     @Test
-    public void containsTotalCostOperation() throws Exception {
+     void containsTotalCostOperation() throws Exception {
         Operation totalCost = new Operation.Builder()
             .operator("=")
             .antecedent(new FunctionTerm.Builder().term(new NumberTerm("0")).build())
             .consequent(new FunctionTerm.Builder().name("total-cost").build())
             .build();
 
-        Set<Formula> formulas = problem.getInitialState().asSet();
+        Set<Formula> formulas = problem.getInitialStates();
         assertTrue(formulas.contains(totalCost));
     }
 
     @Test
-    public void containsMetricDefinition() {
+     void containsMetricDefinition() {
         String metricName = problem.getMetric().getName();
         FunctionTerm term = (FunctionTerm) problem.getMetric().getFormula();
 

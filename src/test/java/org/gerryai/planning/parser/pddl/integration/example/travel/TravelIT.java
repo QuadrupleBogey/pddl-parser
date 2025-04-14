@@ -3,29 +3,34 @@
  * Copyright (c) 2014 David Edwards <david@more.fool.me.uk>
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
+ * it under the terms of the GNU General  License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GNU General  License for more details.
  *
- * You should have received a copy of the GNU General Public License
+ * You should have received a copy of the GNU General  License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package org.gerryai.planning.parser.pddl.integration.example.travel;
 
 import org.gerryai.planning.model.Requirement;
 import org.gerryai.planning.model.domain.Action;
+import org.gerryai.planning.model.domain.Effect;
+import org.gerryai.planning.model.domain.Precondition;
 import org.gerryai.planning.model.logic.Predicate;
+import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.pddl.integration.DomainSuccessTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.gerryai.planning.model.logic.FormulaBuilder.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that the Travel example files are parsed correctly.
@@ -37,200 +42,200 @@ public class TravelIT extends DomainSuccessTester {
     }
 
     @Test
-    public void travelDomainHasCorrectName() {
+     void travelDomainHasCorrectName() {
         assertEquals("bulldozer", domain.getName());
     }
 
     @Test
-    public void travelDomainHasThreeRequirements() {
-        assertEquals(3, domain.getRequirements().asSet().size());
+     void travelDomainHasThreeRequirements() {
+        assertEquals(3, domain.getRequirements().size());
     }
 
     @Test
-    public void travelDomainHasStripsRequirement() {
-        assertTrue(domain.getRequirements().asSet().contains(Requirement.STRIPS));
+     void travelDomainHasStripsRequirement() {
+        assertTrue(domain.getRequirements().contains(Requirement.STRIPS));
     }
 
     @Test
-    public void travelDomainHasEqualityRequirement() {
-        assertTrue(domain.getRequirements().asSet().contains(Requirement.EQUALITY));
+     void travelDomainHasEqualityRequirement() {
+        assertTrue(domain.getRequirements().contains(Requirement.EQUALITY));
     }
 
     @Test
-    public void travelDomainHasNegativePreconditionsRequirement() {
-        assertTrue(domain.getRequirements().asSet().contains(Requirement.NEGATIVE_PRECONDITIONS));
+     void travelDomainHasNegativePreconditionsRequirement() {
+        assertTrue(domain.getRequirements().contains(Requirement.NEGATIVE_PRECONDITIONS));
     }
 
     @Test
-    public void travelDomainHasSevenPredicates() {
-        assertEquals(7, domain.getPredicates().asSet().size());
+     void travelDomainHasSevenPredicates() {
+        assertEquals(7, domain.getPredicates().size());
     }
 
     @Test
-    public void travelDomainHasPredicateRoad() {
+     void travelDomainHasPredicateRoad() {
         Predicate road = new Predicate.Builder()
                 .name("road")
                 .variable("from")
                 .variable("to")
                 .build();
-        assertTrue("Domain contains the (road ?from ?to) predicate", domain.getPredicates().asSet().contains(road));
+        assertTrue(domain.getPredicates().contains(road), "Domain contains the (road ?from ?to) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicateAt() {
+     void travelDomainHasPredicateAt() {
         Predicate at = new Predicate.Builder()
                 .name("at")
                 .variable("thing")
                 .variable("place")
                 .build();
-        assertTrue("Domain contains the (at ?thing ?place) predicate", domain.getPredicates().asSet().contains(at));
+        assertTrue(domain.getPredicates().contains(at), "Domain contains the (at ?thing ?place) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicateMobile() {
+     void travelDomainHasPredicateMobile() {
         Predicate mobile = new Predicate.Builder()
                 .name("mobile")
                 .variable("thing")
                 .build();
-        assertTrue("Domain contains the (mobile ?thing) predicate", domain.getPredicates().asSet().contains(mobile));
+        assertTrue(domain.getPredicates().contains(mobile), "Domain contains the (mobile ?thing) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicateBridge() {
+     void travelDomainHasPredicateBridge() {
         Predicate bridge = new Predicate.Builder()
                 .name("bridge")
                 .variable("from")
                 .variable("to")
                 .build();
-        assertTrue("Domain contains the (bridge ?from ?to) predicate", domain.getPredicates().asSet().contains(bridge));
+        assertTrue(domain.getPredicates().contains(bridge), "Domain contains the (bridge ?from ?to) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicatePerson() {
+     void travelDomainHasPredicatePerson() {
         Predicate person = new Predicate.Builder()
                 .name("person")
                 .variable("p")
                 .build();
-        assertTrue("Domain contains the (person ?p) predicate", domain.getPredicates().asSet().contains(person));
+        assertTrue(domain.getPredicates().contains(person), "Domain contains the (person ?p) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicateVehicle() {
+     void travelDomainHasPredicateVehicle() {
         Predicate vehicle = new Predicate.Builder()
                 .name("vehicle")
                 .variable("v")
                 .build();
-        assertTrue("Domain contains the (vehicle ?v) predicate", domain.getPredicates().asSet().contains(vehicle));
+        assertTrue(domain.getPredicates().contains(vehicle), "Domain contains the (vehicle ?v) predicate");
     }
 
     @Test
-    public void travelDomainHasPredicateDriving() {
+     void travelDomainHasPredicateDriving() {
         Predicate driving = new Predicate.Builder()
                 .name("driving")
                 .variable("p")
                 .variable("v")
                 .build();
-        assertTrue("Domain contains the (driving ?p ?v) predicate", domain.getPredicates().asSet().contains(driving));
+        assertTrue(domain.getPredicates().contains(driving), "Domain contains the (driving ?p ?v) predicate");
     }
 
     @Test
-    public void travelDomainHasFourActions() {
-        assertEquals(4, domain.getActions().asSet().size());
+     void travelDomainHasFourActions() {
+        assertEquals(4, domain.getActions().size());
     }
 
     @Test
-    public void travelDomainHasActionDrive() {
-        Action drive = new Action.Builder()
+     void travelDomainHasActionDrive() {
+        Action drive = Action.builder()
                 .name("drive")
-                .parameter("thing")
-                .parameter("from")
-                .parameter("to")
-                .precondition(
+                .parameter(new Variable("thing"))
+                .parameter(new Variable("from"))
+                .parameter(new Variable("to"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("road", variable("from"), variable("to")),
                                 predicate("at", variable("thing"), variable("from")),
                                 predicate("mobile", variable("thing")),
                                 not(equality(variable("from"), variable("to"))))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("at", variable("thing"), variable("to")),
                                 not(predicate("at", variable("thing"), variable("from"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the Drive action", domain.getActions().asSet().contains(drive));
+        assertTrue(domain.getActions().contains(drive), "Domain contains the Drive action");
     }
 
     @Test
-    public void travelDomainHasActionCross() {
-        Action cross = new Action.Builder()
+     void travelDomainHasActionCross() {
+        Action cross = Action.builder()
                 .name("cross")
-                .parameter("thing")
-                .parameter("from")
-                .parameter("to")
-                .precondition(
+                .parameter(new Variable("thing"))
+                .parameter(new Variable("from"))
+                .parameter(new Variable("to"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("bridge", variable("from"), variable("to")),
                                 predicate("at", variable("thing"), variable("from")),
                                 predicate("mobile", variable("thing")),
                                 not(equality(variable("from"), variable("to"))))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("at", variable("thing"), variable("to")),
                                 not(predicate("at", variable("thing"), variable("from"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the Cross action", domain.getActions().asSet().contains(cross));
+        assertTrue(domain.getActions().contains(cross), "Domain contains the Cross action");
     }
 
     @Test
-    public void travelDomainHasActionBoard() {
-        Action board = new Action.Builder()
+     void travelDomainHasActionBoard() {
+        Action board = Action.builder()
                 .name("board")
-                .parameter("person")
-                .parameter("place")
-                .parameter("vehicle")
-                .precondition(
+                .parameter(new Variable("person"))
+                .parameter(new Variable("place"))
+                .parameter(new Variable("vehicle"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("at", variable("person"), variable("place")),
                                 predicate("person", variable("person")),
                                 predicate("vehicle", variable("vehicle")),
                                 predicate("at", variable("vehicle"), variable("place")))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("driving", variable("person"), variable("vehicle")),
                                 predicate("mobile", variable("vehicle")),
                                 not(predicate("at", variable("person"), variable("place"))),
                                 not(predicate("mobile", variable("person"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the Board action", domain.getActions().asSet().contains(board));
+        assertTrue(domain.getActions().contains(board), "Domain contains the Board action");
     }
 
     @Test
-    public void travelDomainHasActionDisembark() {
-        Action disembark = new Action.Builder()
+     void travelDomainHasActionDisembark() {
+        Action disembark = Action.builder()
                 .name("disembark")
-                .parameter("person")
-                .parameter("place")
-                .parameter("vehicle")
-                .precondition(
+                .parameter(new Variable("person"))
+                .parameter(new Variable("place"))
+                .parameter(new Variable("vehicle"))
+                .precondition(new Precondition(Optional.of(
                         and(
                                 predicate("person", variable("person")),
                                 predicate("vehicle", variable("vehicle")),
                                 predicate("driving", variable("person"), variable("vehicle")),
                                 predicate("at", variable("vehicle"), variable("place")))
-                )
-                .effect(
+                )))
+                .effect(new Effect(Optional.of(
                         and(
                                 predicate("at", variable("person"), variable("place")),
                                 predicate("mobile", variable("person")),
                                 not(predicate("driving", variable("person"), variable("vehicle"))),
                                 not(predicate("mobile", variable("vehicle"))))
-                )
+                )))
                 .build();
-        assertTrue("Domain contains the Disembark action", domain.getActions().asSet().contains(disembark));
+        assertTrue(domain.getActions().contains(disembark), "Domain contains the Disembark action");
     }
 }

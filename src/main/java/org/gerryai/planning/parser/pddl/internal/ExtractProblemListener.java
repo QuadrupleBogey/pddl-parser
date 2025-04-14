@@ -17,21 +17,24 @@
  */
 package org.gerryai.planning.parser.pddl.internal;
 
-import com.google.common.base.Optional;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.gerryai.planning.model.ConstantDefinition;
 import org.gerryai.planning.model.Requirement;
-import org.gerryai.planning.model.logic.Formula;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Formula;
+import org.gerryai.planning.model.logic.impl.Type;
+import org.gerryai.planning.model.problem.Goal;
+import org.gerryai.planning.model.problem.Metric;
 import org.gerryai.planning.model.problem.Problem;
 import org.gerryai.planning.parser.error.MissingRequirementsException;
 import org.gerryai.planning.parser.error.ParseException;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31Parser;
+import org.gerryai.planning.parser.pddl.internal.impl.ExtractingListener;
 import org.gerryai.planning.parser.pddl.internal.logic.ConstantDefinitionStash;
 import org.gerryai.planning.parser.pddl.internal.logic.LogicStackHandler;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -40,12 +43,12 @@ import java.util.Set;
  */
 public class ExtractProblemListener extends LogicListener implements ExtractingListener<Problem> {
 
-    private Problem.Builder problemBuilder;
+    private Problem.ProblemBuilder problemBuilder;
 
     /**
      * The stash of constants awaiting collection.
      */
-    private ConstantDefinitionStash constantDefinitionStash = new ConstantDefinitionStash();
+    private final ConstantDefinitionStash constantDefinitionStash = new ConstantDefinitionStash();
 
     /**
      * Constructor.
@@ -58,7 +61,7 @@ public class ExtractProblemListener extends LogicListener implements ExtractingL
 
     @Override
     public void enterProblem(@NotNull final PDDL31Parser.ProblemContext ctx) {
-        this.problemBuilder = new Problem.Builder();
+        this.problemBuilder = Problem.builder();
     }
 
     @Override
@@ -68,7 +71,7 @@ public class ExtractProblemListener extends LogicListener implements ExtractingL
 
     @Override
     public void exitProblemDomain(@NotNull final PDDL31Parser.ProblemDomainContext ctx) {
-        problemBuilder = problemBuilder.domain(ctx.NAME().getSymbol().getText().toLowerCase());
+        problemBuilder = problemBuilder.domainName(ctx.NAME().getSymbol().getText().toLowerCase());
     }
 
     @Override
@@ -97,30 +100,25 @@ public class ExtractProblemListener extends LogicListener implements ExtractingL
         Type type = getType();
         List<ConstantDefinition> constants = constantDefinitionStash.removeAll();
         for (ConstantDefinition constant : constants) {
-            problemBuilder = problemBuilder.object(new ConstantDefinition(constant.getName(), type));
+            problemBuilder.object(new ConstantDefinition(constant.getName(), type));
         }
     }
 
     @Override
     public void exitInitEl(@NotNull final PDDL31Parser.InitElContext ctx) {
-        problemBuilder = problemBuilder.initialState(getFormula().get());
+        problemBuilder.initialState(getFormula().orElseThrow());
     }
-
 
     @Override
     public void exitGoal(@NotNull final PDDL31Parser.GoalContext ctx) {
-        problemBuilder = problemBuilder.goal(getFormula().get());
-    }
-
-    @Override
-    public void enterMetricsDef(@NotNull final PDDL31Parser.MetricsDefContext ctx) {
-        problemBuilder = problemBuilder.metric(ctx.NAME().getText().toLowerCase());
+        problemBuilder.goal(new Goal(getFormula().orElseThrow()));
     }
 
     @Override
     public void exitMetricsDef(@NotNull final PDDL31Parser.MetricsDefContext ctx) {
         Optional<Formula> formula = getFormula();
-        problemBuilder.metricFormula(formula.get());
+        problemBuilder.metric(new Metric.Builder().name(ctx.NAME().getText().toLowerCase())
+                .formula(formula.orElseThrow()).build());
     }
 
     @Override
@@ -131,7 +129,7 @@ public class ExtractProblemListener extends LogicListener implements ExtractingL
     @Override
     public Problem extract(final Set<Requirement> requirementsNeeded) throws ParseException {
         Problem problem = extract();
-        Set<Requirement> requirementsDeclared = problem.getRequirements().asSet();
+        Set<Requirement> requirementsDeclared = problem.getRequirements();
         Set<Requirement> requirementsMissing = new HashSet<>();
         for (Requirement requirement : requirementsNeeded) {
             if (!requirementsDeclared.contains(requirement)) {

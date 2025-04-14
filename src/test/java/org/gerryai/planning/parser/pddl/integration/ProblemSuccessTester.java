@@ -17,9 +17,9 @@
  */
 package org.gerryai.planning.parser.pddl.integration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Base class for PDDL problem parser integration tests expecting a successful parse.
@@ -27,13 +27,13 @@ import static org.junit.Assert.assertEquals;
 public abstract class ProblemSuccessTester extends PDDLProblemLoader {
 
     @Test
-    public void parsedWithNoSyntaxErrors() {
-        assertEquals("Parsed with no syntax errors", 0, syntaxErrorCount);
+    void parsedWithNoSyntaxErrors() {
+        assertEquals(0, syntaxErrorCount, "Parsed with no syntax errors");
     }
 
     @Test
-    public void parsedWithNoMissingRequirements() {
-        assertEquals("Parsed with no missing requirements", 0, missingRequirements.size());
+    void parsedWithNoMissingRequirements() {
+        assertEquals(0, missingRequirements.size(), "Parsed with no missing requirements");
     }
 
 }

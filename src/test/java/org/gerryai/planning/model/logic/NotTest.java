@@ -18,22 +18,24 @@
 package org.gerryai.planning.model.logic;
 
 import com.google.common.testing.EqualsTester;
-import org.junit.Test;
+import org.gerryai.planning.model.logic.impl.Formula;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class NotTest {
 
     @Test
-    public void getFormulaReturnsSameFormula() {
+     void getFormulaReturnsSameFormula() {
         Formula mockFormula = mock(Formula.class);
         Not not = new Not(mockFormula);
         assertEquals(mockFormula, not.getFormula());
     }
 
     @Test
-    public void testEquals() {
+    void testEquals() {
         Formula mockFormulaA = mock(Formula.class);
         Formula mockFormulaB = mock(Formula.class);
 

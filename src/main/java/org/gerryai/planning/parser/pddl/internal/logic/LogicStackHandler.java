@@ -17,14 +17,13 @@
  */
 package org.gerryai.planning.parser.pddl.internal.logic;
 
-import com.google.common.base.Optional;
 import org.gerryai.planning.model.domain.FunctionDefinition;
 import org.gerryai.planning.model.logic.Constant;
-import org.gerryai.planning.model.logic.Formula;
+import org.gerryai.planning.model.logic.impl.Formula;
 import org.gerryai.planning.model.logic.FunctionTerm;
 import org.gerryai.planning.model.logic.Operation;
 import org.gerryai.planning.model.logic.Predicate;
-import org.gerryai.planning.model.logic.Type;
+import org.gerryai.planning.model.logic.impl.Type;
 import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.pddl.internal.logic.builders.AndBuilder;
 import org.gerryai.planning.parser.pddl.internal.logic.builders.EqualsBuilder;
@@ -38,9 +37,11 @@ import org.gerryai.planning.parser.pddl.internal.logic.builders.OperationBuilder
 import org.gerryai.planning.parser.pddl.internal.logic.builders.PredicateBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.google.common.base.Preconditions.checkState;
 import static java.lang.String.format;
+import static org.gerryai.planning.parser.pddl.internal.logic.FormulaType.AND;
 
 /**
  * Helper methods for dealing with logical nodes in the parser.
@@ -228,14 +229,14 @@ public class LogicStackHandler {
      * Begin a conjunctive formula.
      */
     public void beginAnd() {
-        beginFormula(FormulaType.AND);
+        beginFormula(AND);
     }
 
     /**
      * End a negated formula.
      */
     public void endAnd() {
-        endFormula(FormulaType.AND);
+        endFormula(AND);
     }
 
     /**
@@ -316,9 +317,9 @@ public class LogicStackHandler {
     public Optional<Formula> getOptionalFormula() {
         Optional<FormulaType> nextType = formulaStash.peek();
         if (nextType.isPresent()) {
-            return Optional.fromNullable(getFormula());
+            return Optional.ofNullable(getFormula());
         } else {
-            return Optional.absent();
+            return Optional.empty();
         }
     }
 

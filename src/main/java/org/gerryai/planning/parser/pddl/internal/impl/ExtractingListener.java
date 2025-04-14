@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.gerryai.planning.parser.pddl.internal;
+package org.gerryai.planning.parser.pddl.internal.impl;
 
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 import org.gerryai.planning.model.Requirement;

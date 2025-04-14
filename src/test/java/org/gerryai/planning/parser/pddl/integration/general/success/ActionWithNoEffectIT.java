@@ -18,12 +18,17 @@
 package org.gerryai.planning.parser.pddl.integration.general.success;
 
 import org.gerryai.planning.model.domain.Action;
+import org.gerryai.planning.model.domain.Effect;
+import org.gerryai.planning.model.domain.Precondition;
+import org.gerryai.planning.model.logic.Variable;
 import org.gerryai.planning.parser.pddl.integration.DomainSuccessTester;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+
+import java.util.Optional;
 
 import static org.gerryai.planning.model.logic.FormulaBuilder.predicate;
 import static org.gerryai.planning.model.logic.FormulaBuilder.variable;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * Integration test to check that actions with no effect are parsed correctly.
@@ -36,14 +41,14 @@ public class ActionWithNoEffectIT extends DomainSuccessTester {
 
     @Test
     public void testDomainHasActionTest() {
-        Action testing = new Action.Builder()
+        Action testing = Action.builder()
                 .name("test")
-                .parameter("x")
-                .precondition(
+                .parameter(new Variable("x"))
+                .precondition(new Precondition(Optional.of(
                         predicate("testing", variable("x"))
-                )
-                .effect()
+                )))
+                .effect(new Effect(Optional.empty()))
                 .build();
-        assertTrue("Domain contains the test action", domain.getActions().asSet().contains(testing));
+        assertTrue(domain.getActions().contains(testing), "Domain contains the test action");
     }
 }

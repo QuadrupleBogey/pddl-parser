@@ -28,6 +28,7 @@ import org.gerryai.planning.parser.error.ParseException;
 import org.gerryai.planning.parser.error.SyntaxErrorException;
 import org.gerryai.planning.parser.pddl.antlr.PDDL31Parser;
 import org.gerryai.planning.parser.pddl.internal.error.SyntaxErrorCollector;
+import org.gerryai.planning.parser.pddl.internal.impl.ExtractingListener;
 
 import java.io.IOException;
 import java.io.InputStream;
