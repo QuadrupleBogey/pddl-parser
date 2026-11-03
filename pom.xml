@@ -46,7 +46,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <junit.jupiter.version>5.9.3</junit.jupiter.version>
         <mockito.version>5.0.0</mockito.version>
-        <guava.version>33.4.7-jre</guava.version>
+        <guava.version>33.7.1-jre</guava.version>
     </properties>
 
     <build>
